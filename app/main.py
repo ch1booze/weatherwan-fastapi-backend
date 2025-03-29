@@ -8,6 +8,11 @@ from app.database import Telemetry
 app = create_app()
 
 
+@app.route("/")
+def hello_world():
+    return "Hello, world!"
+
+
 @app.route("/telemetry", methods=["POST"])
 def store_telemetry():
     """Handles incoming telemetry data from IoT nodes."""
