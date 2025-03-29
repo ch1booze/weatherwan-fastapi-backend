@@ -4,6 +4,7 @@ from flask import abort, jsonify, request
 
 from app import create_app, db
 from app.database import Telemetry
+from app.environment import PORT
 
 app = create_app()
 
@@ -43,4 +44,4 @@ def store_telemetry():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=PORT)
