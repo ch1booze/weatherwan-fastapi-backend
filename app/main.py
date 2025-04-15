@@ -1,3 +1,4 @@
+from re import S
 from flask import abort, jsonify, request
 
 from app import create_app, db
@@ -13,7 +14,7 @@ def hello_world():
 
 
 @app.route("/sensor-data", methods=["POST"])
-def sensor_data():
+def post_sensor_data():
     data = request.get_json()
     if not data:
         abort(400)
@@ -25,8 +26,8 @@ def sensor_data():
 
 @app.route("/sensor-data", methods=["GET"])
 def get_sensor_data():
-    data = SensorData.query.all()
-    return jsonify([d.to_dict() for d in data]), 200
+    sensor_data = SensorData.query.all()
+    return jsonify([d.to_dict()for d in sensor_data]), 200
 
 
 if __name__ == "__main__":

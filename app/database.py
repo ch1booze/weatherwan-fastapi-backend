@@ -17,3 +17,12 @@ class SensorData(db.Model):
     temperature: Mapped[float]
     humidity: Mapped[float]
     pressure: Mapped[float]
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "device_id": self.device_id,
+            "temperature": self.temperature,
+            "humidity": self.humidity,
+            "pressure": self.pressure,
+        }
