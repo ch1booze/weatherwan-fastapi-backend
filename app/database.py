@@ -11,7 +11,9 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 
 
-class Telemetry(db.Model):
+class SensorData(db.Model):
     id: Mapped[str] = mapped_column(primary_key=True, default=uuid.uuid4().hex)
-    node: Mapped[str] = mapped_column(index=True)
-    data: Mapped[str]
+    device_id: Mapped[str] = mapped_column(index=True)
+    temperature: Mapped[float]
+    humidity: Mapped[float]
+    pressure: Mapped[float]

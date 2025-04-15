@@ -11,6 +11,3 @@ def get_env_var(env_var: str, default: str | None = None) -> str:
             raise ValueError(f"Environment variable '{env_var}' is not set.")
         return default
     return os.environ[env_var]
-
-
-PORT = int(get_env_var("PORT", "5000"))
