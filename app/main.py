@@ -2,6 +2,7 @@ from flask import abort, jsonify, request
 
 from app import create_app, db
 from app.database import SensorData
+from app.environment import PORT
 
 app = create_app()
 
@@ -29,4 +30,4 @@ def get_sensor_data():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=PORT)
