@@ -12,7 +12,7 @@ db = SQLAlchemy(model_class=Base)
 
 
 class SensorData(db.Model):
-    id: Mapped[str] = mapped_column(primary_key=True, default=uuid.uuid4().hex)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     device_id: Mapped[str] = mapped_column(index=True)
     temperature: Mapped[float]
     humidity: Mapped[float]
