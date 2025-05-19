@@ -1,4 +1,3 @@
-from re import S
 from flask import abort, jsonify, request
 
 from app import create_app, db
