@@ -26,7 +26,7 @@ def post_sensor_data():
 @app.route("/sensor-data", methods=["GET"])
 def get_sensor_data():
     sensor_data = SensorData.query.all()
-    return jsonify([d.to_dict()for d in sensor_data]), 200
+    return jsonify([d.to_dict() for d in sensor_data]), 200
 
 
 if __name__ == "__main__":
