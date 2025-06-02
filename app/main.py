@@ -1,33 +1,28 @@
-from flask import abort, jsonify, request
+from typing import Annotated
 
-from app import create_app, db
-from app.database import SensorData
-from app.environment import PORT
+from fastapi import Depends, FastAPI, WebSocket
+from sqlmodel import Session
 
-app = create_app()
+from app.database import create_db_and_tables, get_session
 
-
-@app.route("/")
-def hello_world():
-    return "Hello, world!"
+SessionDep = Annotated[Session, Depends(get_session)]
+app = FastAPI()
 
 
-@app.route("/sensor-data", methods=["POST"])
-def post_sensor_data():
-    data = request.get_json()
-    if not data:
-        abort(400)
-    sensor_data = SensorData(**data)
-    db.session.add(sensor_data)
-    db.session.commit()
-    return jsonify({"id": sensor_data.id}), 201
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
 
-@app.route("/sensor-data", methods=["GET"])
-def get_sensor_data():
-    sensor_data = SensorData.query.all()
-    return jsonify([d.to_dict() for d in sensor_data]), 200
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
 
-if __name__ == "__main__":
-    app.run(port=PORT)
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        print(data)
+        await websocket.send_text(f"Message text was: {data}")
