@@ -12,3 +12,8 @@ class WeatherData(SQLModel, table=True):
     uv_index: float = Field(sa_column=Column(Float, nullable=False))
     visibility: float = Field(sa_column=Column(Float, nullable=False))
     timestamp: str | None = Field(sa_column=Column(DateTime, server_default=func.now()))
+
+
+class ModelData(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    data: str
