@@ -1,3 +1,5 @@
+import base64
+
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -87,8 +89,12 @@ def predict_weather(input_data):
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 tflite_model = converter.convert()
 
+size = len(tflite_model)
+base64_model = base64.b64encode(tflite_model).decode("utf-8")
+
 with Session(engine) as session:
-    nn = ModelData(data=str(tflite_model))
+    nn = ModelData(data=base64_model, size=size)
     session.add(nn)
     session.commit()
     session.refresh(nn)
+azon

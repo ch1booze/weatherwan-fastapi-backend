@@ -17,3 +17,4 @@ class WeatherData(SQLModel, table=True):
 class ModelData(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     data: str
+    size: int
