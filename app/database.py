@@ -9,7 +9,7 @@ engine = create_engine(sqlite_url, connect_args=connect_args)
 
 
 def create_db_and_tables():
-    from app.models import SQLModel
+    from app.schemas import SQLModel
 
     SQLModel.metadata.create_all(engine)
 

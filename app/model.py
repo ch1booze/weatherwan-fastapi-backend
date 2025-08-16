@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sqlmodel import Session
 
 from app.database import engine
-from app.models import ModelData
+from app.schemas import ModelData
 
 data = pd.read_csv("./data/weather_classification_data.csv")
 
@@ -97,4 +97,3 @@ with Session(engine) as session:
     session.add(nn)
     session.commit()
     session.refresh(nn)
-azon

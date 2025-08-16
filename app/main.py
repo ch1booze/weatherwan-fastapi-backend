@@ -4,14 +4,13 @@ from fastapi import FastAPI
 from sqlmodel import select
 
 from app.database import SessionDep, create_db_and_tables
-from app.models import ModelData, WeatherData
+from app.schemas import ModelData, WeatherData
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db_and_tables()
     yield
-    await app.state.db.close()
 
 
 app = FastAPI(lifespan=lifespan)
